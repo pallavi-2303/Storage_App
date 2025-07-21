@@ -72,13 +72,24 @@ console.log(otp);
   }
 (await cookies()).delete(`otp-${email}`);
 const sessionToken = `sess_${crypto.randomUUID()}`;
-  (await cookies()).set("custom-session", sessionToken, {
+  (await cookies()).set("appwrite-session", sessionToken, {
     path: "/",
     httpOnly: true,
     secure: true,
     sameSite: "strict",
     maxAge: 60 * 60 * 24, // 1 day
   });
+//Store sessionToken
+const {databases}=await createAdminClient();
+const user = await getUserByEmail(email);
+if (user) {
+      await databases.updateDocument(
+        appwriteConfig.databaseId,
+        appwriteConfig.usersCollectionId,
+        user.$id, // 👈 Not accountId
+        { sessionToken }
+      );
+    }
    return { sessionId: sessionToken };
     } catch (error) {
        handleError(error, "Failed to verify OTP");   
@@ -86,17 +97,17 @@ const sessionToken = `sess_${crypto.randomUUID()}`;
 }
 export const getCurrentUser=async()=>{
     try {
-  const sessionToken = (await cookies()).get("custom-session")?.value;
+  const sessionToken = (await cookies()).get("appwrite-session")?.value;
   if (!sessionToken) return null;   
-  const {databases,account} =await createSessionClient();
-  const result=await account.get();
-  const user=await databases.listDocuments(
+  const {databases} =await createSessionClient();
+  const result=await databases.listDocuments(
     appwriteConfig.databaseId,
     appwriteConfig.usersCollectionId,
-    [Query.equal("accountId",result.$id)],
+    [Query.equal("sessionToken",sessionToken)],
   )  ;
-  if(user.total<=0)  return null;
-  return parseStringify(user.documents[0]);
+  if(result.total<=0)  return null;
+  console.log(result.documents[0]);
+  return parseStringify(result.documents[0]);
     } catch (error) {
       console.log(error);   
     }
@@ -104,7 +115,7 @@ export const getCurrentUser=async()=>{
 export const signOutUser=async()=>{
  const {account} =await createSessionClient();
  try {
-  (await cookies()).delete("custom-session");
+  (await cookies()).delete("appwrite-session");
  } catch (error) {
     handleError(error, "Failed to sign out user");
  }  
