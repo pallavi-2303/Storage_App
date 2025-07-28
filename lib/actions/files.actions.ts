@@ -71,12 +71,17 @@ const createQueries = (
   if (types.length > 0) queries.push(Query.equal("type", types));
   if (searchText) queries.push(Query.contains("name", searchText));
   if (limit) queries.push(Query.limit(limit));
+  console.log("Sort value:", sort);
+
   if (sort) {
-    const [sortBy, orderBy] = sort.split("-");
+    const [sortBy, orderBy] = sort.split("-") ;
     queries.push(
       orderBy === "asc" ? Query.orderAsc(sortBy) : Query.orderDesc(sortBy)
     );
   }
+  console.log("Appwrite queries:", queries);
+
+  return queries;
 };
 export const getFiles = async ({
   types = [],
