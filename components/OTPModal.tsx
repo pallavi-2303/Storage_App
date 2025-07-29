@@ -3,18 +3,15 @@ import React, { useState } from "react";
 import {
   AlertDialog,
   AlertDialogAction,
-  AlertDialogCancel,
   AlertDialogContent,
   AlertDialogDescription,
   AlertDialogFooter,
   AlertDialogHeader,
   AlertDialogTitle,
-  AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
 import {
   InputOTP,
   InputOTPGroup,
-  InputOTPSeparator,
   InputOTPSlot,
 } from "@/components/ui/input-otp";
 import { Button } from "@/components/ui/button";
@@ -51,7 +48,6 @@ const OTPModal = ({
   };
   const handleResendOtp = async () => {
      const time = new Date(Date.now() + 15 * 60 * 1000).toLocaleTimeString();
-     const appName="StoreIt";
    try {
     const { otp } = await resendOtp({ email }); // regenerate on server
     await sendOTPViaEmailJs({ email, otp, time }); // send on client
