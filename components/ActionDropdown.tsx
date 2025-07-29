@@ -29,6 +29,7 @@ import {ShareInput} from "./ActionModal";
 import { Button } from "./ui/button";
 import { usePathname } from "next/navigation";
 import { deleteFile, renameFile, updatedFileUsers } from "@/lib/actions/files.actions";
+import { useToast } from "@/hooks/use-toast";
 const ActionDropdown = ({ file }: { file: Models.Document }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
@@ -37,6 +38,7 @@ const ActionDropdown = ({ file }: { file: Models.Document }) => {
   const [isLoading, setIsLoading] = useState(false);
   const [emails, setEmails] = useState<string[]>([]);
   const path=usePathname();
+  const {toast}=useToast();
   const closeAllModals=()=>{
     setIsModalOpen(false);
     setIsDropdownOpen(false);
@@ -54,7 +56,21 @@ const ActionDropdown = ({ file }: { file: Models.Document }) => {
   delete:()=>deleteFile({ fileId: file.$id, bucketFileId: file.bucketFileId, path })
  };
  success=await actions[action.value as keyof typeof actions]();
- if(success) closeAllModals();
+ if(success){
+  toast({
+    title:`${action.label} successfull`,
+    description:`File "${file.name}" ${action.value}d successfully.`,
+  });
+   closeAllModals();
+ }
+  else {
+   toast({
+      variant: "destructive",
+      title: `${action.label} failed`,
+      description: `Something went wrong while trying to ${action.value} the file.`,
+    }); 
+  }
+ 
  setIsLoading(false);
  } 
  const handleRemoveUser=async(email:string)=>{
