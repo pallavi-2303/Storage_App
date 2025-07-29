@@ -27,6 +27,7 @@ export const sendOTPViaEmailJs = async ({
         email: email,
         passcode: otp,
         time: time,
+      
       },
       process.env.NEXT_PUBLIC_EMAILJS_PUBLICID!
     );

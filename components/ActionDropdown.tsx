@@ -30,6 +30,7 @@ import { Button } from "./ui/button";
 import { usePathname } from "next/navigation";
 import { deleteFile, renameFile, updatedFileUsers } from "@/lib/actions/files.actions";
 import { useToast } from "@/hooks/use-toast";
+import { useCurrentUser } from "@/hooks/useCurrentUser";
 const ActionDropdown = ({ file }: { file: Models.Document }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
@@ -38,6 +39,7 @@ const ActionDropdown = ({ file }: { file: Models.Document }) => {
   const [isLoading, setIsLoading] = useState(false);
   const [emails, setEmails] = useState<string[]>([]);
   const path=usePathname();
+  const {user,loading}=useCurrentUser();
   const {toast}=useToast();
   const closeAllModals=()=>{
     setIsModalOpen(false);
@@ -49,12 +51,27 @@ const ActionDropdown = ({ file }: { file: Models.Document }) => {
  if(!action)  return ;
  setIsLoading(true);
  let success=false;
+ const isOwner=user?.$id===file.owner?.$id;
  const actions={
   rename:()=>
     renameFile({fileId:file.$id,name,extension:file.extension,path}),
   share:()=>updatedFileUsers({fileId:file.$id,emails,path}),
-  delete:()=>deleteFile({ fileId: file.$id, bucketFileId: file.bucketFileId, path })
- };
+  delete:async()=>{
+  if(isOwner){
+return await deleteFile({ fileId: file.$id, bucketFileId: file.bucketFileId, path })
+  }
+  else {
+ const updatedUsers = file.users.filter((email: string) => email !== user?.email);
+        return await updatedFileUsers({
+          fileId: file.$id,
+          emails: updatedUsers,
+          path,
+        });
+  }
+ 
+  }
+    
+    };
  success=await actions[action.value as keyof typeof actions]();
  if(success){
   toast({

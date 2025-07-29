@@ -51,6 +51,7 @@ const OTPModal = ({
   };
   const handleResendOtp = async () => {
      const time = new Date(Date.now() + 15 * 60 * 1000).toLocaleTimeString();
+     const appName="StoreIt";
    try {
     const { otp } = await resendOtp({ email }); // regenerate on server
     await sendOTPViaEmailJs({ email, otp, time }); // send on client

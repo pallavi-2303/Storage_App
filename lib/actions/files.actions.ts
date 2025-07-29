@@ -158,7 +158,13 @@ export const deleteFile = async ({
   path,
 }: DeleteFileProps) => {
   const { databases, storage } = await createAdminClient();
+   const currentUser = await getCurrentUser();
+  const fileDoc = await databases.getDocument(appwriteConfig.databaseId, appwriteConfig.filesCollectionId, fileId);
+
   try {
+   if (fileDoc.owner?.$id !== currentUser.$id) {
+    throw new Error("You are not authorized to delete this file.");
+  }
     const deletedFile = await databases.deleteDocument(
       appwriteConfig.databaseId,
       appwriteConfig.filesCollectionId,
