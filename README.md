@@ -15,37 +15,16 @@
 <h3 align="center">Storage and File Sharing Platform</h3>
 
    <div align="center">
-     Build this project step by step with our detailed tutorial on <a href="https://www.youtube.com/@javascriptmastery/videos" target="_blank"><b>JavaScript Mastery</b></a> YouTube. Join the JSM family!
-    </div>
+   <p align="center">
+  <a href="https://your-live-site.com" target="_blank">
+    <b>🌐 Live Website</b>
+  </a>
+</p>  </div>
 </div>
-
-## 📋 <a name="table">Table of Contents</a>
-
-1. 🤖 [Introduction](#introduction)
-2. ⚙️ [Tech Stack](#tech-stack)
-3. 🔋 [Features](#features)
-4. 🤸 [Quick Start](#quick-start)
-5. 🔗 [Assets](#links)
-6. 🚀 [More](#more)
-
-## 🚨 Tutorial
-
-This repository contains the code corresponding to an in-depth tutorial available on our YouTube
-channel, <a href="https://www.youtube.com/@javascriptmastery/videos" target="_blank"><b>JavaScript Mastery</b></a>.
-
-If you prefer visual learning, this is the perfect resource for you. Follow our tutorial to learn how to build projects
-like these step-by-step in a beginner-friendly manner!
-
-<a href="https://youtu.be/lie0cr3wESQ?si=yLQyhMrYLjpysnqE" target="_blank"><img src="https://github.com/sujatagunale/EasyRead/assets/151519281/1736fca5-a031-4854-8c09-bc110e3bc16d" /></a>
 
 ## <a name="introduction">🤖 Introduction</a>
 
-A storage management and file sharing platform that lets users effortlessly upload, organize, and share files. Built with the latest Next.js 15 and the Appwrite Node SDK, utilizing advanced features for seamless file management.
-
-If you're getting started and need assistance or face any bugs, join our active Discord community with over **34k+**
-members. It's a place where people help each other out.
-
-<a href="https://discord.com/invite/n6EdbFJ" target="_blank"><img src="https://github.com/sujatagunale/EasyRead/assets/151519281/618f4872-1e10-42da-8213-1d69e486d02e" /></a>
+A storage management and file sharing platform that lets users effortlessly upload, organize, and share and delete files. Built with the latest Next.js 15 and the Appwrite Node SDK, utilizing advanced features for seamless file management.
 
 ## <a name="tech-stack">⚙️ Tech Stack</a>
 
@@ -55,16 +34,21 @@ members. It's a place where people help each other out.
 - TailwindCSS
 - ShadCN
 - TypeScript
+- Email.js
 
 ## <a name="features">🔋 Features</a>
 
-👉 **User Authentication with Appwrite**: Implement signup, login, and logout functionality using Appwrite's authentication system.
+👉 **User Authentication with Appwrite and Email.js**: Implement signup, login, and logout functionality using Appwrite's authentication system and Email js for sending otp on mobile.
 
 👉 **FIle Uploads**: Effortlessly upload a variety of file types, including documents, images, videos, and audio, ensuring all your important data.
 
 👉 **View and Manage Files**: Users can browse through their uploaded files stored in Appwrite storage, view on a new tab, rename file or delete.
 
 👉 **Download Files**: Users can download their uploaded files giving them instant access to essential documents.
+
+👉 **Rename Files**:Users can rename uploaded files directly within the app with real-time updates.
+
+👉 **Delete Files**:Easily delete unwanted files from your storage with confirmation and access control.
 
 👉 **File Sharing**: Users can easily share their uploaded files with others, enabling collaboration and easy access to important content.
 
@@ -75,6 +59,7 @@ members. It's a place where people help each other out.
 👉 **Sorting Options**: Organize files efficiently by sorting them by date, name, or size, making file management a breeze.
 
 👉 **Modern Responsive Design**: A fresh and minimalist UI that emphasizes usability, ensuring a clean aesthetic across all devices.
+
 
 and many more, including the latest **React 19**, **Next.js 15** and **Appwrite** features alongside code architecture and
 reusability
@@ -94,8 +79,8 @@ Make sure you have the following installed on your machine:
 **Cloning the Repository**
 
 ```bash
-git clone https://github.com/JavaScript-Mastery-Pro/storage_management_solution.git
-cd storage_management_solution
+git clone https://github.com/pallavi-2303/Storage_App.git
+cd Storage_App
 ```
 
 **Installation**
@@ -118,6 +103,10 @@ NEXT_PUBLIC_APPWRITE_USERS_COLLECTION=""
 NEXT_PUBLIC_APPWRITE_FILES_COLLECTION=""
 NEXT_PUBLIC_APPWRITE_BUCKET=""
 NEXT_APPWRITE_KEY=""
+NEXT_PUBLIC_EMAILJS_SERVICEID=""
+NEXT_PUBLIC_EMAILJS_TEMPLATEID=""
+NEXT_PUBLIC_EMAILJS_PUBLICID=""
+
 ```
 
 Replace the values with your actual Appwrite credentials. You can obtain these credentials by signing up &
@@ -128,25 +117,3 @@ creating a new project on the [Appwrite website](https://appwrite.io/).
 ```bash
 npm run dev
 ```
-
-Open [http://localhost:3000](http://localhost:3000) in your browser to view the project.
-
-## <a name="links">🔗 Assets</a>
-
-- Assets used in the project can be found [here](https://jsm.dev/gdrive-kit)
-
-<a href="https://jsm.dev/gdrive-kit">
-  <img src="public/readme/videokit.png" alt="Video Kit Banner">
-</a>
-
-
-## <a name="more">🚀 More</a>
-
-**Advance your skills with Next.js Pro Course**
-
-Enjoyed creating this project? Dive deeper into our PRO courses for a richer learning adventure. They're packed with
-detailed explanations, cool features, and exercises to boost your skills. Give it a go!
-
-<a href="https://jsm.dev/gdrive-jsmpro" target="_blank">
-  <img src="public/readme/jsmpro.png" alt="Project Banner">
-</a>
